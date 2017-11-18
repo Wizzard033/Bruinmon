@@ -79,6 +79,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="navigateMyBruins"
                 android:text="My Bruins" />
 
             <Button
@@ -86,6 +87,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="navigateBruindex"
                 android:text="Bruindex" />
 
             <Button
@@ -93,6 +95,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="navigateBattle"
                 android:text="Battle" />
 
         </LinearLayout>
@@ -106,7 +109,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_weight="1"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +118,7 @@
             android:id="@+id/bruins_nearby_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bruins nearby"
+            android:text="Bruins nearby (tap to capture)"
             android:textSize="18sp" />
 
         <ListView

@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MyBruinsActivity" />
+        <activity android:name=".BruindexActivity" />
+        <activity android:name=".PreBattleActivity" />
+        <activity android:name=".BruinInfoActivity" />
+        <activity android:name=".BattleActivity"></activity>
     </application>
 
 </manifest>

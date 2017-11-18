@@ -1,18 +1,60 @@
 package com.bruinmon;
 
-import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<Bruinmon> nearbyBruinmon;
+    private ListView listView;
+    private BruinListAdapter adapter;
+
+    private Handler handler = new Handler();
+    private Runnable nearbyBruinmonUpdate = new Runnable() {
+        @Override
+        public void run() {
+            // Call the update function about every 5 seconds
+            handler.postDelayed(nearbyBruinmonUpdate, 5000);
+
+            // TODO : List what specific bruinmon are nearby (right now it just lists all of them)
+            nearbyBruinmon.clear();
+            nearbyBruinmon.addAll(Bruinmon.getAll());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        nearbyBruinmon = new ArrayList<Bruinmon>();
+
+        listView = findViewById(R.id.bruins_nearby);
+        adapter = new BruinListAdapter(nearbyBruinmon, getApplicationContext());
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bruinmon bruinmon = nearbyBruinmon.get(position);
+                if (Bruinmon.captureBruinmon(bruinmon)) {
+                    Toast.makeText(getApplicationContext(), bruinmon.getName() + " captured!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You already own " + bruinmon.getName(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        handler.post(nearbyBruinmonUpdate);
     }
 
     /** Called when the user touches the about icon in the top right of the main menu **/
@@ -36,5 +78,23 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         dialog.show();
+    }
+
+    /** Called when the user touches the My Bruins button **/
+    public void navigateMyBruins(View view) {
+        Intent intent = new Intent(this, MyBruinsActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user touches the Bruindex button **/
+    public void navigateBruindex(View view) {
+        Intent intent = new Intent(this, BruindexActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user touches the Battle button **/
+    public void navigateBattle(View view) {
+        Intent intent = new Intent(this, PreBattleActivity.class);
+        startActivity(intent);
     }
 }
