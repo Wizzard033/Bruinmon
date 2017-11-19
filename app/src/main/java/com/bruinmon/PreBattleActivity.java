@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.widget.Toast;
 import java.util.Set;
 
 public class PreBattleActivity extends AppCompatActivity {
@@ -53,6 +54,8 @@ public class PreBattleActivity extends AppCompatActivity {
     /** Called when the user touches the Battle vs Player button **/
     public void battlePlayer(View view) {
         // TODO : Use Bluetooth to do a player vs. player battle
+
+
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) { // Check if device supports bluetooth
             // Device does not support Bluetooth
@@ -64,6 +67,13 @@ public class PreBattleActivity extends AppCompatActivity {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+        String myDeviceAddress = mBluetoothAdapter.getAddress();
+        String myDeviceName = mBluetoothAdapter.getName();
+        String status = myDeviceName +  " : " + myDeviceAddress;
+
+        Toast.makeText(this, status, Toast.LENGTH_LONG).show();
+
+
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
@@ -74,6 +84,13 @@ public class PreBattleActivity extends AppCompatActivity {
                 String deviceHardwareAddress = device.getAddress(); // MAC address
             }
         }
+        //make device discoverable for 300 seconds (5 mins)
+        Intent discoverableIntent =
+                new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+        startActivity(discoverableIntent);
 
     }
 }
+
+
