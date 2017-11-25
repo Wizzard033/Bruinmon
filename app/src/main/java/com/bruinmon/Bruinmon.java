@@ -1,10 +1,9 @@
 package com.bruinmon;
 
-import android.graphics.drawable.Drawable;
-
+import java.io.Serializable;
 import java.util.*;
 
-public class Bruinmon {
+public class Bruinmon implements Serializable {
 
     /** Enumeration for type of the Bruinmon and its moves **/
     public enum Type {
@@ -34,6 +33,19 @@ public class Bruinmon {
     /** Gets the type of a particular Bruinmon **/
     public Type getType() {
         return type;
+    }
+
+    /** Converts a Type to a String **/
+    static public String convertTypeToString(Type type) {
+        switch (type) {
+            case ROCK :
+                return "Rock Type";
+            case PAPER :
+                return "Paper Type";
+            case SCISSORS :
+                return "Scissors Type";
+        }
+        return "Typeless";
     }
 
     /** Gets the first move of a particular Bruinmon **/

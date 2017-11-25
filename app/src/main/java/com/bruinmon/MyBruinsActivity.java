@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,6 +31,8 @@ public class MyBruinsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bruinmon bruinmon = myBruinmon.get(position);
                 Intent intent = new Intent(getApplicationContext(), BruinInfoActivity.class);
+                intent.putExtra("bruinmon", bruinmon);
+                startActivity(intent);
             }
         });
     }

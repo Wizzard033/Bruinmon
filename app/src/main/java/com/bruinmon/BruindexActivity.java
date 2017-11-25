@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,12 +18,12 @@ public class BruindexActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_bruins);
+        setContentView(R.layout.activity_bruindex);
 
         bruindex = new ArrayList<Bruinmon>();
         bruindex.addAll(Bruinmon.getAll());
 
-        listView = findViewById(R.id.my_bruins);
+        listView = findViewById(R.id.bruindex);
         adapter = new BruinListAdapter(bruindex, getApplicationContext());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -32,6 +31,7 @@ public class BruindexActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bruinmon bruinmon = bruindex.get(position);
                 Intent intent = new Intent(getApplicationContext(), BruinInfoActivity.class);
+                intent.putExtra("bruinmon", bruinmon);
                 startActivity(intent);
             }
         });
