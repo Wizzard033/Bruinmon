@@ -48,7 +48,7 @@ public class BattleActivity extends AppCompatActivity {
                     } else if (moveProbability < 7) {
                         // AI has weight 2 for using move 3
                         opponent_move = opponent_bruinmon.getMove3();
-                    } else if (moveProbability < 7) {
+                    } else {
                         // AI has weight 1 for using move 4
                         opponent_move = opponent_bruinmon.getMove4();
                     }
@@ -145,11 +145,12 @@ public class BattleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         game_state = GameState.PLAYER_MOVE_CHOOSE;
-        ((Button)findViewById(R.id.button_move1)).setText(player_bruinmon.getMove1().getName());
-        ((Button)findViewById(R.id.button_move2)).setText(player_bruinmon.getMove2().getName());
-        ((Button)findViewById(R.id.button_move3)).setText(player_bruinmon.getMove3().getName());
-        ((Button)findViewById(R.id.button_move4)).setText(player_bruinmon.getMove4().getName());
         Intent intent = getIntent();
         is_ai_battle = intent.getBooleanExtra("is_ai_battle", false);
         player_bruinmon = (Bruinmon)intent.getSerializableExtra("player_bruinmon");
@@ -162,17 +163,21 @@ public class BattleActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.opponent_bruin_name)).setText(opponent_bruinmon.getName());
         ((ImageView)findViewById(R.id.opponent_bruin_image)).setImageResource(opponent_bruinmon.getImage());
         ((ProgressBar)findViewById(R.id.opponent_bruin_hp_bar)).setMax(MAX_HP);
+        ((Button)findViewById(R.id.button_move1)).setText(player_bruinmon.getMove1().getName());
+        ((Button)findViewById(R.id.button_move2)).setText(player_bruinmon.getMove2().getName());
+        ((Button)findViewById(R.id.button_move3)).setText(player_bruinmon.getMove3().getName());
+        ((Button)findViewById(R.id.button_move4)).setText(player_bruinmon.getMove4().getName());
         updateVisuals();
     }
 
     /** Hides the move buttons **/
     private void hideMoveButtons() {
+        game_state = GameState.OPPONENT_MOVE_CHOOSE;
+        handler.post(gameUpdate);
         findViewById(R.id.button_move1).setVisibility(View.GONE);
         findViewById(R.id.button_move2).setVisibility(View.GONE);
         findViewById(R.id.button_move3).setVisibility(View.GONE);
         findViewById(R.id.button_move4).setVisibility(View.GONE);
-        game_state = GameState.OPPONENT_MOVE_CHOOSE;
-        handler.post(gameUpdate);
     }
 
     /** Shows the move buttons **/
