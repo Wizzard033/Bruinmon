@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class MoveDBHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "moves.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     public static final String TABLE_MOVES = "moves";
     public static final String MOVE_NAME = "name";
