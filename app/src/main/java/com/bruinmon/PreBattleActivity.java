@@ -25,7 +25,8 @@ public class PreBattleActivity extends AppCompatActivity {
 
     /** Called when the user touches the Battle vs AI button **/
     public void battleAI(View view) {
-        Intent intent = new Intent(this, BattleActivity.class);
+        Intent intent = new Intent(this, ChooseBruinActivity.class);
+        intent.putExtra("is_ai_battle", true);
         startActivity(intent);
     }
 

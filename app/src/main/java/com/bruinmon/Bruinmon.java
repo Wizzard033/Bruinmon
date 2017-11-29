@@ -83,7 +83,7 @@ public class Bruinmon implements Serializable {
         x.where = "John Wooden Center";
         x.type = Type.ROCK;
         x.move1 = new Move("Punch", Type.ROCK);
-        x.move2 = new Move("Kick", Type.ROCK);
+        x.move2 = new Move("Crush", Type.PAPER);
         x.move3 = new Move("Chop", Type.SCISSORS);
         x.move4 = new Move("Throw", Type.NONE);
         bruinmon.add(x);

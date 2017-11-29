@@ -12,7 +12,11 @@ public class BruinInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bruin_info);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         Intent intent = getIntent();
         Bruinmon bruinmon = (Bruinmon)intent.getSerializableExtra("bruinmon");
         Move move1 = bruinmon.getMove1();
