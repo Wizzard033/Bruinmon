@@ -39,6 +39,6 @@ public class MyBruinsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         myBruinmon.clear();
-        myBruinmon.addAll(Bruinmon.getAllOwned());
+        myBruinmon.addAll(MainActivity.bruinDB.getAllBruinmons());
     }
 }
