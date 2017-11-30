@@ -15,9 +15,17 @@ public class Bruinmon implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /** Gets the image ID of a particular Bruinmon **/
     public int getImage() {
         return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     /** Gets the description of a particular Bruinmon **/
@@ -25,9 +33,17 @@ public class Bruinmon implements Serializable {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /** Gets the location description of a particular Bruinmon **/
     public String getLocationDescription() {
         return where;
+    }
+
+    public void setWhere(String where) {
+        this.where = where;
     }
 
     /** Gets the type of a particular Bruinmon **/
@@ -35,6 +51,10 @@ public class Bruinmon implements Serializable {
         return type;
     }
 
+
+    public void setType(Type type) {
+        this.type = type;
+    }
     /** Converts a Type to a String **/
     static public String convertTypeToString(Type type) {
         switch (type) {
@@ -53,9 +73,17 @@ public class Bruinmon implements Serializable {
         return move1;
     }
 
+    public void setMove1(Move move1) {
+        this.move1 = move1;
+    }
+
     /** Gets the second move of a particular Bruinmon **/
     public Move getMove2() {
         return move2;
+    }
+
+    public void setMove2(Move move2) {
+        this.move2 = move2;
     }
 
     /** Gets the third move of a particular Bruinmon **/
@@ -63,9 +91,17 @@ public class Bruinmon implements Serializable {
         return move3;
     }
 
+    public void setMove3(Move move3) {
+        this.move3 = move3;
+    }
+
     /** Gets the fourth move of a particular Bruinmon **/
     public Move getMove4() {
         return move4;
+    }
+
+    public void setMove4(Move move4) {
+        this.move4 = move4;
     }
 
     /** Returns a list containing all Bruinmon **/
@@ -86,6 +122,10 @@ public class Bruinmon implements Serializable {
         x.move2 = new Move("Crush", Type.PAPER);
         x.move3 = new Move("Chop", Type.SCISSORS);
         x.move4 = new Move("Throw", Type.NONE);
+        MainActivity.bruinDB.addMove(x.getMove1());
+        MainActivity.bruinDB.addMove(x.getMove2());
+        MainActivity.bruinDB.addMove(x.getMove3());
+        MainActivity.bruinDB.addMove(x.getMove4());
         bruinmon.add(x);
 
         // TODO: Add more Bruinmon
@@ -97,11 +137,14 @@ public class Bruinmon implements Serializable {
     }
 
     /** Adds a Bruinmon to the list of owned Bruinmon and returns false if the Bruinmon was already captured before **/
-    static boolean captureBruinmon(Bruinmon bruinmon) {
-        if (ownedBruinmon.contains(bruinmon)) {
-            return false;
+    static boolean captureBruinmon(Bruinmon bruinmon, MoveDBOperater bruinmonDb) {
+        List<Bruinmon> ownedBruinmon = bruinmonDb.getAllBruinmons();
+        for(Bruinmon mon: ownedBruinmon){
+            if(mon.getName().equals(bruinmon.getName())){
+                return false;
+            }
         }
-        ownedBruinmon.add(bruinmon);
+        bruinmonDb.addBruinmon(bruinmon);
         return true;
     }
 

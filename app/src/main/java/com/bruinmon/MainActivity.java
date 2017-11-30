@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Bruinmon> nearbyBruinmon;
     private ListView listView;
     private BruinListAdapter adapter;
-
+    public static MoveDBOperater bruinDB;
     private Handler handler = new Handler();
     private Runnable nearbyBruinmonUpdate = new Runnable() {
         @Override
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        bruinDB = new MoveDBOperater(this);
+        bruinDB.open();
         nearbyBruinmon = new ArrayList<Bruinmon>();
 
         listView = findViewById(R.id.bruins_nearby);
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bruinmon bruinmon = nearbyBruinmon.get(position);
-                if (Bruinmon.captureBruinmon(bruinmon)) {
+                if (Bruinmon.captureBruinmon(bruinmon, bruinDB)) {
                     Toast.makeText(getApplicationContext(), bruinmon.getName() + " captured!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "You already own " + bruinmon.getName(), Toast.LENGTH_SHORT).show();
