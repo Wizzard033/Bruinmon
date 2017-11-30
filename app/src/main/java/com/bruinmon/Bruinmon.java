@@ -132,9 +132,9 @@ public class Bruinmon implements Serializable {
     }
 
     /** Returns a list containing all Bruinmon that are owned by the user **/
-    static List<Bruinmon> getAllOwned() {
-        return Collections.unmodifiableList(ownedBruinmon);
-    }
+    //static List<Bruinmon> getAllOwned() {
+       // return Collections.unmodifiableList(ownedBruinmon);
+    //}
 
     /** Adds a Bruinmon to the list of owned Bruinmon and returns false if the Bruinmon was already captured before **/
     static boolean captureBruinmon(Bruinmon bruinmon, MoveDBOperater bruinmonDb) {
@@ -160,5 +160,5 @@ public class Bruinmon implements Serializable {
     // TODO: Add additional variables to define Bruinmons' locations (for GPS tech)
 
     private static List<Bruinmon> bruinmon = new ArrayList<Bruinmon>();
-    private static List<Bruinmon> ownedBruinmon = new ArrayList<Bruinmon>();
+    //private static List<Bruinmon> ownedBruinmon = new ArrayList<Bruinmon>();
 }
