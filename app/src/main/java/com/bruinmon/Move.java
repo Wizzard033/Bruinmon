@@ -1,6 +1,8 @@
 package com.bruinmon;
 
-public class Move {
+import java.io.Serializable;
+
+public class Move implements Serializable {
 
     /** Move constructor **/
     Move(String name, Bruinmon.Type type) {

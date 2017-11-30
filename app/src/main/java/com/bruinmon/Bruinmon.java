@@ -1,10 +1,9 @@
 package com.bruinmon;
 
-import android.graphics.drawable.Drawable;
-
+import java.io.Serializable;
 import java.util.*;
 
-public class Bruinmon {
+public class Bruinmon implements Serializable {
 
     /** Enumeration for type of the Bruinmon and its moves **/
     public enum Type {
@@ -52,8 +51,21 @@ public class Bruinmon {
         return type;
     }
 
+
     public void setType(Type type) {
         this.type = type;
+    }
+    /** Converts a Type to a String **/
+    static public String convertTypeToString(Type type) {
+        switch (type) {
+            case ROCK :
+                return "Rock Type";
+            case PAPER :
+                return "Paper Type";
+            case SCISSORS :
+                return "Scissors Type";
+        }
+        return "Typeless";
     }
 
     /** Gets the first move of a particular Bruinmon **/
@@ -107,7 +119,7 @@ public class Bruinmon {
         x.where = "John Wooden Center";
         x.type = Type.ROCK;
         x.move1 = new Move("Punch", Type.ROCK);
-        x.move2 = new Move("Kick", Type.ROCK);
+        x.move2 = new Move("Crush", Type.PAPER);
         x.move3 = new Move("Chop", Type.SCISSORS);
         x.move4 = new Move("Throw", Type.NONE);
         MainActivity.bruinDB.addMove(x.getMove1());
