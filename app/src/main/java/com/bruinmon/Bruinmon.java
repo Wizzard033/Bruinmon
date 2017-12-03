@@ -129,6 +129,41 @@ public class Bruinmon implements Serializable {
         bruinmon.add(x);
 
         // TODO: Add more Bruinmon
+        com.bruinmon.Bruinmon classic = new com.bruinmon.Bruinmon();
+        classic.name = "Classic Bruin";
+        classic.image = R.drawable.classic_bruin;
+        classic.description = "An all-around fighter.";
+        classic.where = "John Wooden Center";
+        classic.type = com.bruinmon.Bruinmon.Type.ROCK;
+        classic.move1 = new Move("Punch", com.bruinmon.Bruinmon.Type.ROCK);
+        classic.move2 = new Move("Throw", com.bruinmon.Bruinmon.Type.NONE);
+        classic.move3 = new Move("Chop", com.bruinmon.Bruinmon.Type.SCISSORS);
+        classic.move4 = new Move("Crush", com.bruinmon.Bruinmon.Type.PAPER);
+        bruinmon.add(classic);
+
+        com.bruinmon.Bruinmon cheerful = new com.bruinmon.Bruinmon();
+        cheerful.name = "Cheerful Bruin";
+        cheerful.image = R.drawable.cheerful_bruin;
+        cheerful.description = "A cheerful bruin that would rather do an 8-clap than fight.";
+        cheerful.where = "Rose Bowl";
+        cheerful.type = com.bruinmon.Bruinmon.Type.PAPER;
+        cheerful.move1 = new Move("Punch", com.bruinmon.Bruinmon.Type.ROCK);
+        cheerful.move2 = new Move("Kick", com.bruinmon.Bruinmon.Type.ROCK);
+        cheerful.move3 = new Move("8-Clap", com.bruinmon.Bruinmon.Type.NONE);
+        cheerful.move4 = new Move("Cheer", com.bruinmon.Bruinmon.Type.NONE);
+        bruinmon.add(cheerful);
+
+        com.bruinmon.Bruinmon basketball = new com.bruinmon.Bruinmon();
+        basketball.name = "Big Baller Bruin";
+        basketball.image = R.drawable.basketball_bruin;
+        basketball.description = "Using its big baller skills, it can match any foe, on or off the court.";
+        basketball.where = "Pauley Pavilion";
+        basketball.type = com.bruinmon.Bruinmon.Type.ROCK;
+        basketball.move1 = new Move("Punch", com.bruinmon.Bruinmon.Type.ROCK);
+        basketball.move2 = new Move("Kick", com.bruinmon.Bruinmon.Type.ROCK);
+        basketball.move3 = new Move("Dribble", com.bruinmon.Bruinmon.Type.PAPER);
+        basketball.move4 = new Move("Box-Out", com.bruinmon.Bruinmon.Type.ROCK);
+        bruinmon.add(basketball);
     }
 
     /** Returns a list containing all Bruinmon that are owned by the user **/
