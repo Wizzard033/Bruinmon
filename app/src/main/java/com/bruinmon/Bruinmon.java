@@ -15,6 +15,11 @@ public class Bruinmon implements Serializable {
         return name;
     }
 
+    /** Gets the ID for the Bruinmon **/
+    public int getId() {
+        return id;
+    }
+
     /** Gets the image ID of a particular Bruinmon **/
     public int getImage() {
         return image;
@@ -86,6 +91,7 @@ public class Bruinmon implements Serializable {
         x.move2 = new Move("Crush", Type.PAPER);
         x.move3 = new Move("Chop", Type.SCISSORS);
         x.move4 = new Move("Throw", Type.NONE);
+        x.id = bruinmon.size();
         bruinmon.add(x);
 
         // TODO: Add more Bruinmon
@@ -114,6 +120,7 @@ public class Bruinmon implements Serializable {
     private Move move2;
     private Move move3;
     private Move move4;
+    private int id;
     // TODO: Add additional variables to define Bruinmons' locations (for GPS tech)
 
     private static List<Bruinmon> bruinmon = new ArrayList<Bruinmon>();

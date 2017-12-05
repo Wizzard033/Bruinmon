@@ -11,23 +11,21 @@ import java.util.ArrayList;
 
 public class MyBruinsActivity extends AppCompatActivity {
 
-    private ArrayList<Bruinmon> myBruinmon;
     private ListView listView;
-    private BruinListAdapter adapter;
+    private BruinListAdapter myBruinmon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bruins);
 
-        myBruinmon = new ArrayList<Bruinmon>();
         listView = findViewById(R.id.my_bruins);
-        adapter = new BruinListAdapter(myBruinmon, getApplicationContext());
-        listView.setAdapter(adapter);
+        myBruinmon = new BruinListAdapter(new ArrayList<Bruinmon>(), getApplicationContext());
+        listView.setAdapter(myBruinmon);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bruinmon bruinmon = myBruinmon.get(position);
+                Bruinmon bruinmon = myBruinmon.getItem(position);
                 Intent intent = new Intent(getApplicationContext(), BruinInfoActivity.class);
                 intent.putExtra("bruinmon", bruinmon);
                 startActivity(intent);

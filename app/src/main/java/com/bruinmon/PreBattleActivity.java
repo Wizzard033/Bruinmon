@@ -1,26 +1,52 @@
 package com.bruinmon;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.IntentFilter;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Set;
 
 public class PreBattleActivity extends AppCompatActivity {
 
+    private final PreBattleActivity activity = this;
+    private DeviceListAdapter devices;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_battle);
 
-        // Register for broadcasts when a device is discovered.
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter);
+        ListView listView = findViewById(R.id.paired_devices);
+        devices = new DeviceListAdapter(new ArrayList<BluetoothDevice>(), getApplicationContext());
+        listView.setAdapter(devices);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Challenge/connect to the tapped on device from the device list
+                BluetoothDevice device = devices.getItem(position);
+                Intent intent = new Intent(activity, ChooseBruinActivity.class);
+                intent.putExtra("is_ai_battle", false);
+                intent.putExtra("is_hosting", false);
+                intent.putExtra("opponent_device", device);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        findViewById(R.id.button_await_challenge).setVisibility(View.GONE);
+        findViewById(R.id.paired_devices_title).setVisibility(View.GONE);
+        findViewById(R.id.paired_devices).setVisibility(View.GONE);
     }
 
     /** Called when the user touches the Battle vs AI button **/
@@ -30,68 +56,42 @@ public class PreBattleActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Create a BroadcastReceiver for ACTION_FOUND.
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // Discovery has found a device. Get the BluetoothDevice
-                // object and its info from the Intent.
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-            }
-        }
-    };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        // Don't forget to unregister the ACTION_FOUND receiver.
-        unregisterReceiver(mReceiver);
-    }
-
     /** Called when the user touches the Battle vs Player button **/
     public void battlePlayer(View view) {
-        // TODO : Use Bluetooth to do a player vs. player battle
+        // Show the battle player GUI elements
+        findViewById(R.id.button_await_challenge).setVisibility(View.VISIBLE);
+        findViewById(R.id.paired_devices_title).setVisibility(View.VISIBLE);
+        findViewById(R.id.paired_devices).setVisibility(View.VISIBLE);
 
-
+        // Turn Bluetooth on
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) { // Check if device supports bluetooth
-            // Device does not support Bluetooth
-            System.err.println("Bluetooth not supported on device.");
-            System.exit(-1);
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(getApplicationContext(), "Bluetooth not supported by device", Toast.LENGTH_SHORT).show();
         }
-        int REQUEST_ENABLE_BT = 1;
-        if (!mBluetoothAdapter.isEnabled()) {// Enable bluetooth if not already enabled
+        if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            startActivityForResult(enableBtIntent, 1);
+            return;
         }
-        String myDeviceAddress = mBluetoothAdapter.getAddress();
-        String myDeviceName = mBluetoothAdapter.getName();
-        String status = myDeviceName +  " : " + myDeviceAddress;
 
-        Toast.makeText(this, status, Toast.LENGTH_LONG).show();
-
-
-
+        // Update list of paired devices
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-
-        if (pairedDevices.size() > 0) {
-            // There are paired devices. Get the name and address of each paired device.
-            for (BluetoothDevice device : pairedDevices) {
-                String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-            }
+        if (pairedDevices.size() < 1) {
+            Toast.makeText(getApplicationContext(), "No paired Bluetooth devices found", Toast.LENGTH_SHORT).show();
+            return;
         }
-        //make device discoverable for 300 seconds (5 mins)
-        Intent discoverableIntent =
-                new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-        startActivity(discoverableIntent);
+        devices.clear();
+        for (BluetoothDevice device : pairedDevices) {
+            devices.add(device);
+        }
 
     }
+
+    /** Called when the user touches the Await Challenger button **/
+    public void awaitChallenge(View view) {
+        Intent intent = new Intent(this, ChooseBruinActivity.class);
+        intent.putExtra("is_ai_battle", false);
+        intent.putExtra("is_hosting", true);
+        startActivity(intent);
+    }
 }
-
-

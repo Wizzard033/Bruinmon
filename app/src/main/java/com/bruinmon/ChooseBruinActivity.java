@@ -11,25 +11,25 @@ import java.util.ArrayList;
 
 public class ChooseBruinActivity extends AppCompatActivity {
 
-    private ArrayList<Bruinmon> myBruinmon;
     private ListView listView;
-    private BruinListAdapter adapter;
+    private BruinListAdapter myBruinmon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_bruin);
 
-        myBruinmon = new ArrayList<Bruinmon>();
         listView = findViewById(R.id.choose_bruins);
-        adapter = new BruinListAdapter(myBruinmon, getApplicationContext());
-        listView.setAdapter(adapter);
+        myBruinmon = new BruinListAdapter(new ArrayList<Bruinmon>(), getApplicationContext());
+        listView.setAdapter(myBruinmon);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bruinmon bruinmon = myBruinmon.get(position);
+                Bruinmon bruinmon = myBruinmon.getItem(position);
                 Intent intent = new Intent(getApplicationContext(), BattleActivity.class);
                 intent.putExtra("is_ai_battle", getIntent().getBooleanExtra("is_ai_battle", false));
+                intent.putExtra("is_hosting", getIntent().getBooleanExtra("is_hosting", false));
+                intent.putExtra("opponent_device", getIntent().getParcelableExtra("opponent_device"));
                 intent.putExtra("player_bruinmon", bruinmon);
                 startActivity(intent);
             }
