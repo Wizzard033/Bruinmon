@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
 public class PreBattleActivity extends AppCompatActivity {
 
@@ -84,7 +85,6 @@ public class PreBattleActivity extends AppCompatActivity {
         for (BluetoothDevice device : pairedDevices) {
             devices.add(device);
         }
-
     }
 
     /** Called when the user touches the Await Challenger button **/
