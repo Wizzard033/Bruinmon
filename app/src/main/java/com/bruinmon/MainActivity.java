@@ -15,10 +15,10 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Bruinmon> nearbyBruinmon;
     private ListView listView;
-    private BruinListAdapter adapter;
+    private BruinListAdapter nearbyBruinmon;
     public static MoveDBOperater bruinDB;
+
     private Handler handler = new Handler();
     private Runnable nearbyBruinmonUpdate = new Runnable() {
         @Override
@@ -36,17 +36,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bruinDB = new MoveDBOperater(this);
         bruinDB.open();
-        nearbyBruinmon = new ArrayList<Bruinmon>();
 
         listView = findViewById(R.id.bruins_nearby);
-        adapter = new BruinListAdapter(nearbyBruinmon, getApplicationContext());
-        listView.setAdapter(adapter);
+        nearbyBruinmon = new BruinListAdapter(new ArrayList<Bruinmon>(), getApplicationContext());
+        listView.setAdapter(nearbyBruinmon);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bruinmon bruinmon = nearbyBruinmon.get(position);
+                Bruinmon bruinmon = nearbyBruinmon.getItem(position);
                 if (Bruinmon.captureBruinmon(bruinmon, bruinDB)) {
                     Toast.makeText(getApplicationContext(), bruinmon.getName() + " captured!", Toast.LENGTH_SHORT).show();
                 } else {

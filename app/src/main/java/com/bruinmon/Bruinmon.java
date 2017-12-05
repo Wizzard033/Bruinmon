@@ -15,6 +15,12 @@ public class Bruinmon implements Serializable {
         return name;
     }
 
+    /** Gets the ID for the Bruinmon **/
+    public int getId() {
+        return id;
+    }
+
+    /** Sets the name of the Bruinmon **/
     public void setName(String name) {
         this.name = name;
     }
@@ -24,6 +30,7 @@ public class Bruinmon implements Serializable {
         return image;
     }
 
+    /** Sets the image of the Bruinmon **/
     public void setImage(int image) {
         this.image = image;
     }
@@ -42,6 +49,7 @@ public class Bruinmon implements Serializable {
         return where;
     }
 
+    /** Sets the location description of the Bruinmon **/
     public void setWhere(String where) {
         this.where = where;
     }
@@ -51,10 +59,11 @@ public class Bruinmon implements Serializable {
         return type;
     }
 
-
+    /** Sets the type of the Bruinmon **/
     public void setType(Type type) {
         this.type = type;
     }
+
     /** Converts a Type to a String **/
     static public String convertTypeToString(Type type) {
         switch (type) {
@@ -73,6 +82,7 @@ public class Bruinmon implements Serializable {
         return move1;
     }
 
+    /** Sets the move1 of the Bruinmon **/
     public void setMove1(Move move1) {
         this.move1 = move1;
     }
@@ -82,6 +92,7 @@ public class Bruinmon implements Serializable {
         return move2;
     }
 
+    /** Sets the move2 of the Bruinmon **/
     public void setMove2(Move move2) {
         this.move2 = move2;
     }
@@ -91,6 +102,7 @@ public class Bruinmon implements Serializable {
         return move3;
     }
 
+    /** Sets the move3 of the Bruinmon **/
     public void setMove3(Move move3) {
         this.move3 = move3;
     }
@@ -100,6 +112,7 @@ public class Bruinmon implements Serializable {
         return move4;
     }
 
+    /** Sets the move4 of the Bruinmon **/
     public void setMove4(Move move4) {
         this.move4 = move4;
     }
@@ -122,13 +135,13 @@ public class Bruinmon implements Serializable {
         x.move2 = new Move("Crush", Type.PAPER);
         x.move3 = new Move("Chop", Type.SCISSORS);
         x.move4 = new Move("Throw", Type.NONE);
+        x.id = bruinmon.size();
+        bruinmon.add(x);
         MainActivity.bruinDB.addMove(x.getMove1());
         MainActivity.bruinDB.addMove(x.getMove2());
         MainActivity.bruinDB.addMove(x.getMove3());
         MainActivity.bruinDB.addMove(x.getMove4());
-        bruinmon.add(x);
 
-        // TODO: Add more Bruinmon
         com.bruinmon.Bruinmon classic = new com.bruinmon.Bruinmon();
         classic.name = "Classic Bruin";
         classic.image = R.drawable.classic_bruin;
@@ -166,11 +179,6 @@ public class Bruinmon implements Serializable {
         bruinmon.add(basketball);
     }
 
-    /** Returns a list containing all Bruinmon that are owned by the user **/
-    //static List<Bruinmon> getAllOwned() {
-       // return Collections.unmodifiableList(ownedBruinmon);
-    //}
-
     /** Adds a Bruinmon to the list of owned Bruinmon and returns false if the Bruinmon was already captured before **/
     static boolean captureBruinmon(Bruinmon bruinmon, MoveDBOperater bruinmonDb) {
         List<Bruinmon> ownedBruinmon = bruinmonDb.getAllBruinmons();
@@ -192,8 +200,8 @@ public class Bruinmon implements Serializable {
     private Move move2;
     private Move move3;
     private Move move4;
+    private int id;
     // TODO: Add additional variables to define Bruinmons' locations (for GPS tech)
 
     private static List<Bruinmon> bruinmon = new ArrayList<Bruinmon>();
-    //private static List<Bruinmon> ownedBruinmon = new ArrayList<Bruinmon>();
 }
