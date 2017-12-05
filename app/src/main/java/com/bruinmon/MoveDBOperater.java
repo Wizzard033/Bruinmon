@@ -104,13 +104,13 @@ public class MoveDBOperater {
 
         Bruinmon b = new Bruinmon();
         Bruinmon.Type type;
-        if(cursor.getString(4) == "NONE"){
+        if(cursor.getString(4).equals("NONE")){
             type = Bruinmon.Type.NONE;
         }
-        else if(cursor.getString(4) == "ROCK"){
+        else if(cursor.getString(4).equals("ROCK")){
             type = Bruinmon.Type.ROCK;
         }
-        else if (cursor.getString(4) == "PAPER"){
+        else if (cursor.getString(4).equals("PAPER")){
             type = Bruinmon.Type.PAPER;
         }
         else {
@@ -119,7 +119,7 @@ public class MoveDBOperater {
         Move move1 = this.getMove(cursor.getString(5));
         Move move2 = this.getMove(cursor.getString(6));
         Move move3 = this.getMove(cursor.getString(7));
-        Move move4 = this.getMove(cursor.getString(7));
+        Move move4 = this.getMove(cursor.getString(8));
 
         b.setName(cursor.getString(0));
         b.setImage(Integer.parseInt(cursor.getString(1)));
@@ -140,13 +140,13 @@ public class MoveDBOperater {
             cursor.moveToFirst();
 
         Bruinmon.Type type;
-        if(cursor.getString(1) == "NONE"){
+        if(cursor.getString(1).equals("NONE")){
             type = Bruinmon.Type.NONE;
         }
-        else if(cursor.getString(1) == "ROCK"){
+        else if(cursor.getString(1).equals("ROCK")){
             type = Bruinmon.Type.ROCK;
         }
-        else if (cursor.getString(1) == "PAPER"){
+        else if (cursor.getString(1).equals("PAPER")){
             type = Bruinmon.Type.PAPER;
         }
         else {

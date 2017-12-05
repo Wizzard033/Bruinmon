@@ -131,9 +131,9 @@ public class Bruinmon implements Serializable {
         x.description = "Using its heavy muscles, it throws powerful punches that can send the victim clear over the horizon.";
         x.where = "John Wooden Center";
         x.type = Type.ROCK;
-        x.move1 = new Move("Punch", Type.ROCK);
-        x.move2 = new Move("Crush", Type.PAPER);
-        x.move3 = new Move("Chop", Type.SCISSORS);
+        x.move1 = new Move("Mega Punch", Type.ROCK);
+        x.move2 = new Move("Full Nelson", Type.PAPER);
+        x.move3 = new Move("Karate Chop", Type.SCISSORS);
         x.move4 = new Move("Throw", Type.NONE);
         x.id = bruinmon.size();
         bruinmon.add(x);
@@ -142,41 +142,56 @@ public class Bruinmon implements Serializable {
         MainActivity.bruinDB.addMove(x.getMove3());
         MainActivity.bruinDB.addMove(x.getMove4());
 
-        com.bruinmon.Bruinmon classic = new com.bruinmon.Bruinmon();
-        classic.name = "Classic Bruin";
-        classic.image = R.drawable.classic_bruin;
-        classic.description = "An all-around fighter.";
-        classic.where = "John Wooden Center";
-        classic.type = com.bruinmon.Bruinmon.Type.ROCK;
-        classic.move1 = new Move("Punch", com.bruinmon.Bruinmon.Type.ROCK);
-        classic.move2 = new Move("Throw", com.bruinmon.Bruinmon.Type.NONE);
-        classic.move3 = new Move("Chop", com.bruinmon.Bruinmon.Type.SCISSORS);
-        classic.move4 = new Move("Crush", com.bruinmon.Bruinmon.Type.PAPER);
-        bruinmon.add(classic);
+        x = new Bruinmon();
+        x.name = "Classic Bruin";
+        x.image = R.drawable.classic_bruin;
+        x.description = "An all-around fighter.";
+        x.where = "Everywhere";
+        x.type = Type.ROCK;
+        x.move1 = new Move("Jab", Type.ROCK);
+        x.move2 = new Move("Squeeze", Type.PAPER);
+        x.move3 = new Move("Bite", Type.SCISSORS);
+        x.move4 = new Move("Indian Burn", Type.NONE);
+        x.id = bruinmon.size();
+        bruinmon.add(x);
+        MainActivity.bruinDB.addMove(x.getMove1());
+        MainActivity.bruinDB.addMove(x.getMove2());
+        MainActivity.bruinDB.addMove(x.getMove3());
+        MainActivity.bruinDB.addMove(x.getMove4());
 
-        com.bruinmon.Bruinmon cheerful = new com.bruinmon.Bruinmon();
-        cheerful.name = "Cheerful Bruin";
-        cheerful.image = R.drawable.cheerful_bruin;
-        cheerful.description = "A cheerful bruin that would rather do an 8-clap than fight.";
-        cheerful.where = "Rose Bowl";
-        cheerful.type = com.bruinmon.Bruinmon.Type.PAPER;
-        cheerful.move1 = new Move("Punch", com.bruinmon.Bruinmon.Type.ROCK);
-        cheerful.move2 = new Move("Kick", com.bruinmon.Bruinmon.Type.ROCK);
-        cheerful.move3 = new Move("8-Clap", com.bruinmon.Bruinmon.Type.NONE);
-        cheerful.move4 = new Move("Cheer", com.bruinmon.Bruinmon.Type.NONE);
-        bruinmon.add(cheerful);
+        x = new Bruinmon();
+        x.name = "Cheerful Bruin";
+        x.image = R.drawable.cheerful_bruin;
+        x.description = "A cheerful bruin that would rather do an 8-clap than fight.";
+        x.where = "Rose Bowl";
+        x.type = Type.PAPER;
+        x.move1 = new Move("8-Clap", Type.PAPER);
+        x.move2 = new Move("High V", Type.SCISSORS);
+        x.move3 = new Move("Kick", Type.ROCK);
+        x.move4 = new Move("Cheer", Type.NONE);
+        bruinmon.add(x);
+        MainActivity.bruinDB.addMove(x.getMove1());
+        MainActivity.bruinDB.addMove(x.getMove2());
+        MainActivity.bruinDB.addMove(x.getMove3());
+        MainActivity.bruinDB.addMove(x.getMove4());
 
-        com.bruinmon.Bruinmon basketball = new com.bruinmon.Bruinmon();
-        basketball.name = "Big Baller Bruin";
-        basketball.image = R.drawable.basketball_bruin;
-        basketball.description = "Using its big baller skills, it can match any foe, on or off the court.";
-        basketball.where = "Pauley Pavilion";
-        basketball.type = com.bruinmon.Bruinmon.Type.ROCK;
-        basketball.move1 = new Move("Punch", com.bruinmon.Bruinmon.Type.ROCK);
-        basketball.move2 = new Move("Kick", com.bruinmon.Bruinmon.Type.ROCK);
-        basketball.move3 = new Move("Dribble", com.bruinmon.Bruinmon.Type.PAPER);
-        basketball.move4 = new Move("Box-Out", com.bruinmon.Bruinmon.Type.ROCK);
-        bruinmon.add(basketball);
+        x = new Bruinmon();
+        x.name = "Big Baller Bruin";
+        x.image = R.drawable.basketball_bruin;
+        x.description = "Using its big baller skills, it can match any foe, on or off the court.";
+        x.where = "Pauley Pavilion";
+        x.type = Type.SCISSORS;
+        x.move1 = new Move("Precise Shot", Type.SCISSORS);
+        x.move2 = new Move("Slam Dunk", Type.ROCK);
+        x.move3 = new Move("Dribble", Type.PAPER);
+        x.move4 = new Move("Box-Out", Type.NONE);
+        bruinmon.add(x);
+        MainActivity.bruinDB.addMove(x.getMove1());
+        MainActivity.bruinDB.addMove(x.getMove2());
+        MainActivity.bruinDB.addMove(x.getMove3());
+        MainActivity.bruinDB.addMove(x.getMove4());
+
+        // TODO: If you add more Bruinmon, always add them below the previous ones (do not re-order them)
     }
 
     /** Adds a Bruinmon to the list of owned Bruinmon and returns false if the Bruinmon was already captured before **/
