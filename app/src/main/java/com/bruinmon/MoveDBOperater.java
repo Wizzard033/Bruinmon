@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Location;
 import android.text.method.MovementMethod;
 import android.util.Log;
 import java.util.ArrayList;
@@ -30,7 +31,10 @@ public class MoveDBOperater {
             MoveDBHandler.BRUINMON_MOVE1,
             MoveDBHandler.BRUINMON_MOVE2,
             MoveDBHandler.BRUINMON_MOVE3,
-            MoveDBHandler.BRUINMON_MOVE4
+            MoveDBHandler.BRUINMON_MOVE4,
+            MoveDBHandler.BRUINMON_LOCATION_LATITUDE,
+            MoveDBHandler.BRUINMON_LOCATION_LONGITUDE,
+            MoveDBHandler.BRUINMON_RADIUS
     };
 
     public MoveDBOperater(Context context){
@@ -71,6 +75,9 @@ public class MoveDBOperater {
         values.put(MoveDBHandler.BRUINMON_MOVE2, bruinmon.getMove2().getName());
         values.put(MoveDBHandler.BRUINMON_MOVE3, bruinmon.getMove3().getName());
         values.put(MoveDBHandler.BRUINMON_MOVE4, bruinmon.getMove4().getName());
+        values.put(MoveDBHandler.BRUINMON_LOCATION_LATITUDE, bruinmon.getLocation().getLatitude());
+        values.put(MoveDBHandler.BRUINMON_LOCATION_LONGITUDE, bruinmon.getLocation().getLongitude());
+        values.put(MoveDBHandler.BRUINMON_RADIUS, bruinmon.getLocationRadius());
         database.insert(MoveDBHandler.TABLE_BRUINMON,null,values);
 
     }
@@ -130,6 +137,9 @@ public class MoveDBOperater {
         b.setMove2(move2);
         b.setMove3(move3);
         b.setMove4(move4);
+        b.setLatitude(cursor.getDouble(9));
+        b.setLongitude(cursor.getDouble(10));
+        b.setLocationRadius(cursor.getFloat(11));
         return b;
     }
 
@@ -221,6 +231,9 @@ public class MoveDBOperater {
                 b.setMove2(move2);
                 b.setMove3(move3);
                 b.setMove4(move4);
+                b.setLatitude(cursor.getDouble(cursor.getColumnIndex(MoveDBHandler.BRUINMON_LOCATION_LATITUDE)));
+                b.setLongitude(cursor.getDouble(cursor.getColumnIndex(MoveDBHandler.BRUINMON_LOCATION_LONGITUDE)));
+                b.setLocationRadius(cursor.getFloat(cursor.getColumnIndex(MoveDBHandler.BRUINMON_RADIUS)));
                 bruinmons.add(b);
             }
         }

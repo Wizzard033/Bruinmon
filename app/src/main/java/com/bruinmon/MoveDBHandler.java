@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class MoveDBHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "moves.db";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     public static final String TABLE_MOVES = "moves";
     public static final String MOVE_NAME = "name";
@@ -23,12 +23,15 @@ public class MoveDBHandler extends SQLiteOpenHelper {
     public static final String BRUINMON_NAME = "name";
     public static final String BRUINMON_IMAGE = "image";
     public static final String BRUINMON_DESCRIPTION = "description";
-    public static final String BRUINMON_WHERE = "location";
+    public static final String BRUINMON_WHERE = "locationdesc";
     public static final String BRUINMON_TYPE = "type";
     public static final String BRUINMON_MOVE1 = "move1";
     public static final String BRUINMON_MOVE2 = "move2";
     public static final String BRUINMON_MOVE3 = "move3";
     public static final String BRUINMON_MOVE4 = "move4";
+    public static final String BRUINMON_LOCATION_LATITUDE = "locationlatitude";
+    public static final String BRUINMON_LOCATION_LONGITUDE = "locationlongitude";
+    public static final String BRUINMON_RADIUS = "radius";
 
     private static final String TABLE_CREATE2 =
             "CREATE TABLE " + TABLE_BRUINMON + " (" +
@@ -40,7 +43,10 @@ public class MoveDBHandler extends SQLiteOpenHelper {
                     BRUINMON_MOVE1+ " TEXT," +
                     BRUINMON_MOVE2 + " TEXT," +
                     BRUINMON_MOVE3 + " TEXT," +
-                    BRUINMON_MOVE4 + " TEXT" +
+                    BRUINMON_MOVE4 + " TEXT," +
+                    BRUINMON_LOCATION_LATITUDE + " TEXT," +
+                    BRUINMON_LOCATION_LONGITUDE + " TEXT," +
+                    BRUINMON_RADIUS + " TEXT" +
                     ")";
 
     public MoveDBHandler(Context context){

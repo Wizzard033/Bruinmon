@@ -1,5 +1,7 @@
 package com.bruinmon;
 
+import android.location.Location;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -117,10 +119,42 @@ public class Bruinmon implements Serializable {
         this.move4 = move4;
     }
 
+    /** Gets the location a particular Bruinmon **/
+    public Location getLocation() {
+        return location;
+    }
+
+    /** Sets the latitude of the Bruinmon **/
+    public void setLatitude(double latitude) {
+        this.location.setLatitude(latitude);
+    }
+
+    /** Sets the longitude of the Bruinmon **/
+    public void setLongitude(double longitude) {
+        this.location.setLongitude(longitude);
+    }
+
+    /** Gets the location radius a particular Bruinmon (in meters) **/
+    public float getLocationRadius() {
+        return locationRadius;
+    }
+
+    /** Sets the location of the Bruinmon **/
+    public void setLocationRadius(float locationRadius) {
+        this.locationRadius = locationRadius;
+    }
+
     /** Returns a list containing all Bruinmon **/
     static List<Bruinmon> getAll() {
         if (bruinmon.size() < 1) createBruinmon();
         return Collections.unmodifiableList(bruinmon);
+    }
+
+    private static Location createNewLocation(double latitude, double longitude) {
+        Location location = new Location("dummyprovider");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        return location;
     }
 
     /** Initializes the list of all Bruinmon **/
@@ -135,6 +169,8 @@ public class Bruinmon implements Serializable {
         x.move2 = new Move("Full Nelson", Type.PAPER);
         x.move3 = new Move("Karate Chop", Type.SCISSORS);
         x.move4 = new Move("Throw", Type.NONE);
+        x.location = createNewLocation(34.071321, -118.445434);
+        x.locationRadius = 80;
         x.id = bruinmon.size();
         bruinmon.add(x);
         MainActivity.bruinDB.addMove(x.getMove1());
@@ -152,6 +188,8 @@ public class Bruinmon implements Serializable {
         x.move2 = new Move("Squeeze", Type.PAPER);
         x.move3 = new Move("Bite", Type.SCISSORS);
         x.move4 = new Move("Indian Burn", Type.NONE);
+        x.location = null;
+        x.locationRadius = Float.MAX_VALUE;
         x.id = bruinmon.size();
         bruinmon.add(x);
         MainActivity.bruinDB.addMove(x.getMove1());
@@ -169,6 +207,8 @@ public class Bruinmon implements Serializable {
         x.move2 = new Move("High V", Type.SCISSORS);
         x.move3 = new Move("Kick", Type.ROCK);
         x.move4 = new Move("Cheer", Type.NONE);
+        x.location = createNewLocation(34.161297, -118.167648);
+        x.locationRadius = 600;
         bruinmon.add(x);
         MainActivity.bruinDB.addMove(x.getMove1());
         MainActivity.bruinDB.addMove(x.getMove2());
@@ -185,6 +225,8 @@ public class Bruinmon implements Serializable {
         x.move2 = new Move("Slam Dunk", Type.ROCK);
         x.move3 = new Move("Dribble", Type.PAPER);
         x.move4 = new Move("Box-Out", Type.NONE);
+        x.location = createNewLocation(34.070355, -118.446774);
+        x.locationRadius = 100;
         bruinmon.add(x);
         MainActivity.bruinDB.addMove(x.getMove1());
         MainActivity.bruinDB.addMove(x.getMove2());
@@ -216,7 +258,8 @@ public class Bruinmon implements Serializable {
     private Move move3;
     private Move move4;
     private int id;
-    // TODO: Add additional variables to define Bruinmons' locations (for GPS tech)
+    Location location;
+    float locationRadius;
 
     private static List<Bruinmon> bruinmon = new ArrayList<Bruinmon>();
 }

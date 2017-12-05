@@ -1,11 +1,16 @@
 package com.bruinmon;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,24 +18,39 @@ import android.widget.Toast;
 
 import java.util.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private ListView listView;
     private BruinListAdapter nearbyBruinmon;
     public static MoveDBOperater bruinDB;
 
-    private Handler handler = new Handler();
-    private Runnable nearbyBruinmonUpdate = new Runnable() {
-        @Override
-        public void run() {
-            // Call the update function about every 5 seconds
-            handler.postDelayed(nearbyBruinmonUpdate, 20000);
+    private LocationManager locationManager;
 
-            // TODO : List what specific bruinmon are nearby (right now it just lists all of them)
-            nearbyBruinmon.clear();
-            nearbyBruinmon.addAll(Bruinmon.getAll());
+    @Override
+    public void onLocationChanged(Location location) {
+        nearbyBruinmon.clear();
+        for (Bruinmon bruinmon : Bruinmon.getAll()) {
+            Location bruinmonLocation = bruinmon.getLocation();
+            if (bruinmonLocation == null || location.distanceTo(bruinmonLocation) < bruinmon.getLocationRadius()) {
+                nearbyBruinmon.add(bruinmon);
+            }
         }
-    };
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(MainActivity.this, "Please enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +75,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        handler.post(nearbyBruinmonUpdate);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 0, this);
+        } catch (SecurityException e) {
+            Toast.makeText(getApplicationContext(), "Cannot get location", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /** Called when the user touches the about icon in the top right of the main menu **/
