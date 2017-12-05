@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             // Call the update function about every 5 seconds
-            handler.postDelayed(nearbyBruinmonUpdate, 5000);
+            handler.postDelayed(nearbyBruinmonUpdate, 20000);
 
             // TODO : List what specific bruinmon are nearby (right now it just lists all of them)
             nearbyBruinmon.clear();
