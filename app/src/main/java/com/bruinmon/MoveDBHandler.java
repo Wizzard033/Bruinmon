@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class MoveDBHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "moves.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 21;
 
     public static final String TABLE_MOVES = "moves";
     public static final String MOVE_NAME = "name";
@@ -31,7 +31,7 @@ public class MoveDBHandler extends SQLiteOpenHelper {
     public static final String BRUINMON_MOVE4 = "move4";
     public static final String BRUINMON_LOCATION_LATITUDE = "locationlatitude";
     public static final String BRUINMON_LOCATION_LONGITUDE = "locationlongitude";
-    public static final String BRUINMON_RADIUS = "radius";
+    public static final String BRUINMON_RADIUS = "locationradius";
 
     private static final String TABLE_CREATE2 =
             "CREATE TABLE " + TABLE_BRUINMON + " (" +
@@ -66,6 +66,3 @@ public class MoveDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 }
-
-
-
