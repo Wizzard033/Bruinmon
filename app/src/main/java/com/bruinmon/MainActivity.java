@@ -62,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         listView = findViewById(R.id.bruins_nearby);
         nearbyBruinmon = new BruinListAdapter(new ArrayList<Bruinmon>(), getApplicationContext());
+        for (Bruinmon bruinmon : Bruinmon.getAll()) {
+            Location bruinmonLocation = bruinmon.getLocation();
+            if (bruinmonLocation == null) {
+                nearbyBruinmon.add(bruinmon);
+            }
+        }
         listView.setAdapter(nearbyBruinmon);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
