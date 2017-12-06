@@ -75,8 +75,8 @@ public class MoveDBOperater {
         values.put(MoveDBHandler.BRUINMON_MOVE2, bruinmon.getMove2().getName());
         values.put(MoveDBHandler.BRUINMON_MOVE3, bruinmon.getMove3().getName());
         values.put(MoveDBHandler.BRUINMON_MOVE4, bruinmon.getMove4().getName());
-        values.put(MoveDBHandler.BRUINMON_LOCATION_LATITUDE, bruinmon.getLocation().getLatitude());
-        values.put(MoveDBHandler.BRUINMON_LOCATION_LONGITUDE, bruinmon.getLocation().getLongitude());
+        values.put(MoveDBHandler.BRUINMON_LOCATION_LATITUDE, bruinmon.getLatitude());
+        values.put(MoveDBHandler.BRUINMON_LOCATION_LONGITUDE, bruinmon.getLongitude());
         values.put(MoveDBHandler.BRUINMON_RADIUS, bruinmon.getLocationRadius());
         database.insert(MoveDBHandler.TABLE_BRUINMON,null,values);
 
